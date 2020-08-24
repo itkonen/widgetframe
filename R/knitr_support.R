@@ -31,7 +31,7 @@ knit_print.widgetframe <- function(x, ..., options = NULL) {
   # Hack-ish way to get dependencies folder for the parent document.
   # See https://github.com/yihui/knitr/issues/1390
 
-  defWidgetsDir <- file.path(knitr::opts_chunk$get('fig.path'), 'widgets')
+  defWidgetsDir <- file.path(gsub("/$", "", knitr::opts_chunk$get('fig.path')), 'widgets')
 
   widgetsDir <- NULL
 
@@ -84,7 +84,7 @@ knit_print.widgetframe <- function(x, ..., options = NULL) {
     htmlwidgets::appendContent(
       htmltools::HTML(sprintf("<!-- widgetframe widget-href=\"%s\" -->", childFile)))
   } else {
-    x$x$url <- file.path(widgetsDir,childFile)
+    x$x$url <- file.path(gsub("/$", "", widgetsDir), childFile)
   }
 
   # Knit parent widget
